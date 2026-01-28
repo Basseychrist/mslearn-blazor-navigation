@@ -198,8 +198,15 @@ form {
         line-height: 2rem;
     }
 
+.pizza-info .price::before {
+    content: '₦';
+    font-weight: 300;
+    font-size: 1.2rem;
+    margin-right: 0.2rem;
+}
+
 .price::before {
-    content: '£';
+    content: '₦';
     font-weight: 300;
     font-size: 1.2rem;
     margin-right: 0.2rem;
@@ -251,7 +258,7 @@ form {
     }
 
         .order-total .total-price::before {
-            content: '£';
+            content: '₦';
             font-weight: 300;
             margin: 0 0.1rem 0 0.4rem;
         }
@@ -308,7 +315,7 @@ form {
 }
 
     .item-price::before {
-        content: '£';
+        content: '₦';
         font-weight: 100;
         margin-right: 0.3rem;
     }
@@ -455,7 +462,7 @@ form {
 }
 
 .dialog .topping-price::before {
-    content: '£';
+    content: '₦';
 }
 
 .delete-topping {
@@ -756,3 +763,28 @@ input[type=range] {
         transform: translateX(500px);
     }
 }
+
+footer {
+    background: linear-gradient(135deg, rgb(192,0,0) 0%, rgb(140,0,0) 100%);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 3px solid rgba(255,255,255,0.2);
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+    margin-top: auto;
+}
+
+    footer a {
+        color: #fff2cc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+        color: white;
+        text-decoration: underline;
+        font-weight: 500;
+    }

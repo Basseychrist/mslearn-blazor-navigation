@@ -1,0 +1,64 @@
+@page "/myorders"
+@attribute [StreamRendering(enabled: false)]
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<div class="main">
+    @if (orders == null)
+    {
+        <p><em>Loading orders...</em></p>
+    }
+    else if (orders.Count == 0)
+    {
+        <p>No orders yet.</p>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var item in orders)
+            {
+                <div class="list-group-item">
+                    <div class="col">
+                        <h5>@item.Order.CreatedTime.ToLongDateString()</h5>
+                        <p>
+                            <strong>
+                                @($"{item.Order.Pizzas.Count} pizza{(item.Order.Pizzas.Count == 1 ? "" : "s")}")
+                            </strong>
+                        </p>
+                        <p>
+                            <strong>
+                                Total: ₦@item.Order.GetFormattedTotalPrice()
+                            </strong>
+                        </p>
+                        <p>
+                            Status: <strong>@item.StatusText</strong>
+                        </p>
+                    </div>
+                    <div class="col-auto">
+                        <a href="myorders/@item.Order.OrderId" class="btn btn-success">
+                            Track &gt;
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    List<OrderWithStatus> orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            orders = await HttpClient.GetFromJsonAsync<List<OrderWithStatus>>(
+                $"{NavigationManager.BaseUri}orders");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error loading orders: {ex.Message}");
+            orders = new List<OrderWithStatus>();
+        }
+    }
+}
